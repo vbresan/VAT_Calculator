@@ -10,3 +10,6 @@
 /app/release/
 /app/src/main/res/values/donottranslate_secrets.xml
 /nativetemplates/
+/gradlew
+/gradlew.bat
+/gradle/wrapper/gradle-wrapper.jar
