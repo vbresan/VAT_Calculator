@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VAT Calculator</string>
+    
+    <string name="Country">Country</string>
+    <string name="TaxRate">Tax rate</string>
+    
+    <string name="Base">Base</string>
+    <string name="Tax">Tax</string>
+    <string name="Total">Total</string>
+    <string name="ClearCalculation">Clear calculation</string>
+
+</resources>

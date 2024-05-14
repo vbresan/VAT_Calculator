@@ -1,0 +1,33 @@
+2.0 (2024.05.xx)
+
+* updating VAT information
+* complete redesign
+
+
+1.3 (2020.06.26)
+
+* updating obsolete libraries
+
+
+1.2.1 (2013.09.26)
+
+* minor UI modification
+
+
+1.2 (2013.06.30)
+
+* built with Android 4.2
+* removing ACRA
+* updated 3rd party libraries
+* updated tax rates
+
+
+1.1 (2012.03.23)
+
+* updated tax rates
+* can be installed to SD card
+
+
+1.0 (2012.01.21)
+
+* initial release

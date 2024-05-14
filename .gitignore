@@ -1,0 +1,12 @@
+*.iml
+.gradle
+.idea
+/local.properties
+/build
+/captures
+.externalNativeBuild
+.cxx
+/app/build/
+/app/release/
+/app/src/main/res/values/donottranslate_secrets.xml
+/nativetemplates/

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PDV Kalkulator</string>
+    
+    <string name="Country">Država</string>
+    <string name="TaxRate">Porezna stopa</string>
+    
+    <string name="Base">Osnovica</string>
+    <string name="Tax">Porez</string>
+    <string name="Total">Ukupno</string>
+    <string name="ClearCalculation">Izbriši izračun</string>
+
+</resources>
