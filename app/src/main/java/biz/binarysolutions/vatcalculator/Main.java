@@ -20,6 +20,7 @@ import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -437,6 +438,8 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		DynamicColors.applyToActivityIfAvailable(this);
 		setContentView(R.layout.main);
 
 		setJSONArray();
@@ -450,8 +453,8 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 		editTextTax   = findViewById(R.id.editTextTax);
 		editTextTotal = findViewById(R.id.editTextTotal);
 
-        setCountrySpinner();
-        setRateSpinner();
+		setCountrySpinner();
+		setRateSpinner();
 
 		setStartIconListeners();
         setEditTextListeners();
