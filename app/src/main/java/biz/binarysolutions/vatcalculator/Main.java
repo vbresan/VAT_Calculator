@@ -7,11 +7,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,20 +56,24 @@ public class Main extends AppCompatActivity
 	private double taxRate = 0;
 	
 	private Spinner spinnerRates;
-	
+
+	private TextInputLayout layoutBase;
+	private TextInputLayout layoutTax;
+	private TextInputLayout layoutTotal;
+
 	private EditText editTextBase;
 	private EditText editTextTax;
 	private EditText editTextTotal;
 
-	private Button button;
-
 	/**
 	 *
 	 */
-	private final TextWatcher baseWatcher = new DefaultTextWatcher() {
+	private final TextWatcher watcherBase = new DefaultTextWatcher() {
 
 		@Override
 		public void afterTextChanged(Editable s) {
+
+			layoutBase.setStartIconVisible(editTextBase.length() > 0);
 
 			double base = 0;
 
@@ -90,10 +94,12 @@ public class Main extends AppCompatActivity
 	/**
 	 *
 	 */
-	private final TextWatcher taxWatcher = new DefaultTextWatcher() {
+	private final TextWatcher watcherTax = new DefaultTextWatcher() {
 
 		@Override
 		public void afterTextChanged(Editable s) {
+
+			layoutTax.setStartIconVisible(editTextTax.length() > 0);
 
 			double tax = 0;
 
@@ -114,10 +120,12 @@ public class Main extends AppCompatActivity
 	/**
 	 *
 	 */
-	private final TextWatcher totalWatcher = new DefaultTextWatcher() {
+	private final TextWatcher watcherTotal = new DefaultTextWatcher() {
 
 		@Override
 		public void afterTextChanged(Editable s) {
+
+			layoutTotal.setStartIconVisible(editTextTotal.length() > 0);
 
 			double total = 0;
 
@@ -146,7 +154,6 @@ public class Main extends AppCompatActivity
 		String formattedValue = new DecimalFormat("0.00").format(value);
 		return formattedValue;
 	}
-
 
 	/**
 	 *
@@ -310,61 +317,41 @@ public class Main extends AppCompatActivity
 	    spinnerRates.setAdapter(adapter);
 		spinnerRates.setOnItemSelectedListener(this);
 		spinnerRates.setSelection(getSavedRateIndex());
-	}	
+	}
+
+	/**
+	 *
+	 * @param editText
+	 * @param layout
+	 * @param watcher
+	 */
+	private void setOnFocusChangeListener
+		(
+			EditText        editText,
+			TextInputLayout layout,
+			TextWatcher     watcher
+		) {
+
+		editText.setOnFocusChangeListener((v, hasFocus) -> {
+
+			if (hasFocus) {
+				layout.setStartIconVisible(editText.length() > 0);
+				editText.addTextChangedListener(watcher);
+			} else {
+				layout.setStartIconVisible(false);
+				editText.removeTextChangedListener(watcher);
+			}
+		});
+	}
 	
 	/**
 	 * 
 	 */
-	private void setBaseListener() {
-		
-		editTextBase.setOnFocusChangeListener((v, hasFocus) -> {
-
-			if (hasFocus) {
-				editTextBase.addTextChangedListener(baseWatcher);
-			} else {
-				editTextBase.removeTextChangedListener(baseWatcher);
-			}
-		});
-	}
-
-	/**
-	 * 
-	 */
-	private void setTaxListener() {
-		
-		editTextTax.setOnFocusChangeListener((v, hasFocus) -> {
-
-			if (hasFocus) {
-				editTextTax.addTextChangedListener(taxWatcher);
-			} else {
-				editTextTax.removeTextChangedListener(taxWatcher);
-			}
-		});
-	}
-
-	/**
-	 * 
-	 */
-	private void setTotalListener() {
-		
-		editTextTotal.setOnFocusChangeListener((v, hasFocus) -> {
-
-			if (hasFocus) {
-				editTextTotal.addTextChangedListener(totalWatcher);
-			} else {
-				editTextTotal.removeTextChangedListener(totalWatcher);
-			}
-		});
-	}
-
-	/**
-	 * 
-	 */
 	private void setEditTextListeners() {
-		
-		setBaseListener();
-		setTaxListener();
-		setTotalListener();
+
+		setOnFocusChangeListener(editTextBase,  layoutBase,  watcherBase);
+		setOnFocusChangeListener(editTextTax,   layoutTax,   watcherTax);
+		setOnFocusChangeListener(editTextTotal, layoutTotal, watcherTotal);
 	}
 
 	/**
@@ -375,13 +362,6 @@ public class Main extends AppCompatActivity
 		editTextBase.setText("");
 		editTextTax.setText("");
 		editTextTotal.setText("");
-	}
-
-	/**
-	 * 
-	 */
-	private void setButtonListener() {
-		button.setOnClickListener(v -> deleteAll());
 	}
 
 	/**
@@ -423,6 +403,16 @@ public class Main extends AppCompatActivity
 	/**
 	 *
 	 */
+	private void setStartIconListeners() {
+
+		layoutBase.setStartIconOnClickListener(v -> editTextBase.setText(""));
+		layoutTax.setStartIconOnClickListener(v -> editTextTax.setText(""));
+		layoutTotal.setStartIconOnClickListener(v -> editTextTotal.setText(""));
+	}
+
+	/**
+	 *
+	 */
 	private void initializeAds() {
 
 		MobileAds.initialize(this);
@@ -440,27 +430,50 @@ public class Main extends AppCompatActivity
 		adLoader.loadAd(new AdRequest.Builder().build());
 	}
 
+	/**
+	 *
+	 */
+	private void antiFlickWorkaround() {
+
+		layoutTotal.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+
+			@Override
+			public void onGlobalLayout() {
+
+				layoutBase.setStartIconVisible(false);
+				layoutTax.setStartIconVisible(false);
+				layoutTotal.setStartIconVisible(false);
+
+				layoutTotal.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+			}
+		});
+	}
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        initializeAds();
+		initializeAds();
+
+		layoutBase  = findViewById(R.id.layoutBase);
+		layoutTax   = findViewById(R.id.layoutTax);
+		layoutTotal = findViewById(R.id.layoutTotal);
 
         editTextBase  = findViewById(R.id.editTextBase);
-        editTextTax   = findViewById(R.id.editTextTax);
+		editTextTax   = findViewById(R.id.editTextTax);
 		editTextTotal = findViewById(R.id.editTextTotal);
-
-		button = findViewById(R.id.buttonClearAll);
 
 		jsonArray    = getJSONArray();
 		countryNames = getCountryNames();
 
         setCountrySpinner();
         setRateSpinner();
-        
+
+		setStartIconListeners();
         setEditTextListeners();
-        setButtonListener();
+
+		antiFlickWorkaround();
     }
 
 	@Override

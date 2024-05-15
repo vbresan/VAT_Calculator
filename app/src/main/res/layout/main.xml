@@ -59,11 +59,13 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/Base"
-                app:hintTextAppearance="@style/TextLabel"
                 android:layout_marginBottom="16dp"
+                app:hintTextAppearance="@style/TextLabel"
+                app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextBase"
@@ -76,11 +78,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutTax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/Tax"
-                app:hintTextAppearance="@style/TextLabel"
                 android:layout_marginBottom="16dp"
+                app:hintTextAppearance="@style/TextLabel"
+                app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTax"
@@ -93,11 +97,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutTotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/Total"
-                app:hintTextAppearance="@style/TextLabel"
                 android:layout_marginBottom="16dp"
+                app:hintTextAppearance="@style/TextLabel"
+                app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTotal"
@@ -108,16 +114,6 @@
                     android:gravity="end"
                 />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/buttonClearAll"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="@string/ClearCalculation"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_marginBottom="16dp"
-            />
 
         </LinearLayout>
 

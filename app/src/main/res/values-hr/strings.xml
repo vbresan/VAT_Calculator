@@ -8,6 +8,5 @@
     <string name="Base">Osnovica</string>
     <string name="Tax">Porez</string>
     <string name="Total">Ukupno</string>
-    <string name="ClearCalculation">Izbriši izračun</string>
 
 </resources>

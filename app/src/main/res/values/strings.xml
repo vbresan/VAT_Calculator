@@ -8,6 +8,5 @@
     <string name="Base">Base</string>
     <string name="Tax">Tax</string>
     <string name="Total">Total</string>
-    <string name="ClearCalculation">Clear calculation</string>
 
 </resources>
