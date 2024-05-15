@@ -446,7 +446,7 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 		layoutTax   = findViewById(R.id.layoutTax);
 		layoutTotal = findViewById(R.id.layoutTotal);
 
-        editTextBase  = findViewById(R.id.editTextBase);
+		editTextBase  = findViewById(R.id.editTextBase);
 		editTextTax   = findViewById(R.id.editTextTax);
 		editTextTotal = findViewById(R.id.editTextTotal);
 
