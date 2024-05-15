@@ -8,12 +8,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,22 +33,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import biz.binarysolutions.vatcalculator.util.DefaultTextWatcher;
+import biz.binarysolutions.vatcalculator.util.Spinner;
 
 /**
  *
  */
-public class Main extends AppCompatActivity
-	implements
-		OnItemClickListener,
-		OnFocusChangeListener,
-		OnItemSelectedListener {
+public class Main extends AppCompatActivity implements OnFocusChangeListener {
 
 	public static final String KEY_COUNTRY_INDEX = "countryIndex";
 	public static final String KEY_RATE_INDEX    = "rateIndex";
 
 	private JSONArray    jsonArray    = null;
 	private List<String> countryNames = null;
-	
+
 	private double taxRate = 0;
 	
 	private Spinner spinnerRates;
@@ -159,7 +152,7 @@ public class Main extends AppCompatActivity
 	 *
 	 * @return
 	 */
-	private JSONArray getJSONArray() {
+	private void setJSONArray() {
 
 		try {
 			InputStream is     = getAssets().open("rates.json");
@@ -171,10 +164,10 @@ public class Main extends AppCompatActivity
 			is.close();
 
 			String json = new String(buffer, StandardCharsets.UTF_8);
-			return new JSONArray(json);
+			jsonArray = new JSONArray(json);
 
 		} catch (Exception ex) {
-			return null;
+			// do nothing
 		}
 	}
 
@@ -182,9 +175,9 @@ public class Main extends AppCompatActivity
 	 *
 	 * @return
 	 */
-	private List<String> getCountryNames() {
+	private void setCountryNames() {
 
-		List<String> countryNames = new ArrayList<>();
+		countryNames = new ArrayList<>();
 
 		try {
 			for (int i = 0; i < jsonArray.length(); i++) {
@@ -197,21 +190,19 @@ public class Main extends AppCompatActivity
 		} catch (JSONException e) {
 			// do nothing
 		}
-
-		return countryNames;
 	}
 
 	/**
 	 *
 	 * @return
 	 */
-	private List<String> getCountryRates(int position) {
+	private List<String> getCountryRates(int countryIndex) {
 
 		List<String> rates = new ArrayList<>();
 
 		try {
 
-			JSONArray countryArray = jsonArray.getJSONArray(position);
+			JSONArray countryArray = jsonArray.getJSONArray(countryIndex);
 			JSONArray ratesArray   = countryArray.getJSONArray(1);
 
 			for (int i = 0; i < ratesArray.length(); i++) {
@@ -279,44 +270,59 @@ public class Main extends AppCompatActivity
 	}
 
 	/**
+	 *
+	 */
+	private void onCountryItemClicked(String country) {
+
+		clearCalculation();
+
+		int index = countryNames.indexOf(country);
+		spinnerRates.setAdapter(getCountryRates(index));
+		saveCountryIndex(index);
+		saveRateIndex(0);
+	}
+
+	/**
 	 * 
 	 */
 	private void setCountrySpinner() {
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<>(
 			this,
-			android.R.layout.simple_dropdown_item_1line,
+			R.layout.list_item,
 			countryNames
 		);
 
-		MaterialAutoCompleteTextView editText = findViewById(R.id.autoComplete);
-		editText.setAdapter(adapter);
-		editText.setOnItemClickListener(this);
-		editText.setOnFocusChangeListener(this);
+		MaterialAutoCompleteTextView view = findViewById(R.id.spinnerCountry);
+		view.setAdapter(adapter);
+		view.setOnFocusChangeListener(this);
+		view.setOnItemClickListener((pa, v, po, id) ->
+			onCountryItemClicked(view.getText().toString())
+		);
 
 		String lastSavedCountry = countryNames.get(getSavedCountryIndex());
-		editText.setText(lastSavedCountry);
+		view.setText(lastSavedCountry);
 	}
-	
+
 	/**
 	 * 
 	 */
 	private void setRateSpinner() {
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<>(
-			this,
-			android.R.layout.simple_spinner_item,
-			getCountryRates(getSavedCountryIndex())
+		spinnerRates = findViewById(R.id.spinnerRate);
+		spinnerRates.setAdapter(getCountryRates(getSavedCountryIndex()));
+		spinnerRates.setOnItemClickListener((p, v, position, i) ->
+			saveRateIndex(position)
 		);
+		spinnerRates.addTextChangedListener(new DefaultTextWatcher() {
+			@Override
+			public void afterTextChanged(Editable editable) {
+				updateTaxRate(editable.toString());
+			}
+		});
 
-		adapter.setDropDownViewResource(
-			android.R.layout.simple_spinner_dropdown_item
-		);
-
-		spinnerRates = findViewById(R.id.spinnerRates);
-	    spinnerRates.setAdapter(adapter);
-		spinnerRates.setOnItemSelectedListener(this);
-		spinnerRates.setSelection(getSavedRateIndex());
+		int index = getSavedRateIndex();
+		spinnerRates.setSelectedItem(index);
 	}
 
 	/**
@@ -357,7 +363,7 @@ public class Main extends AppCompatActivity
 	/**
 	 * 
 	 */
-	private void deleteAll() {
+	private void clearCalculation() {
 		
 		editTextBase.setText("");
 		editTextTax.setText("");
@@ -366,32 +372,11 @@ public class Main extends AppCompatActivity
 
 	/**
 	 * 
-	 * @param position
-	 */
-	private void updateSpinnerRatesAdapter(int position) {
-
-		deleteAll();
-
-		ArrayAdapter<String> adapter = new ArrayAdapter<>(
-			this,
-			android.R.layout.simple_spinner_item,
-			getCountryRates(position)
-		);
-
-	    adapter.setDropDownViewResource(
-			android.R.layout.simple_spinner_dropdown_item
-		);
-	    
-	    spinnerRates.setAdapter(adapter);
-	}
-
-	/**
-	 * 
 	 * @param item
 	 */
 	private void updateTaxRate(String item) {
 
-		deleteAll();
+		clearCalculation();
 		
 		try {
 			taxRate = Double.parseDouble(item.substring(0, item.length() - 1)); 
@@ -452,9 +437,10 @@ public class Main extends AppCompatActivity
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		setContentView(R.layout.main);
 
-		initializeAds();
+		setJSONArray();
+		setCountryNames();
 
 		layoutBase  = findViewById(R.id.layoutBase);
 		layoutTax   = findViewById(R.id.layoutTax);
@@ -464,39 +450,15 @@ public class Main extends AppCompatActivity
 		editTextTax   = findViewById(R.id.editTextTax);
 		editTextTotal = findViewById(R.id.editTextTotal);
 
-		jsonArray    = getJSONArray();
-		countryNames = getCountryNames();
-
         setCountrySpinner();
         setRateSpinner();
 
 		setStartIconListeners();
         setEditTextListeners();
 
+		initializeAds();
 		antiFlickWorkaround();
     }
-
-	@Override
-	public void onItemClick
-		(
-			AdapterView<?> parent,
-			View           view,
-			int            position,
-			long           id
-		) {
-
-		if (! (view instanceof TextView textView)) {
-			return;
-		}
-
-		String country      = textView.getText().toString();
-		int    countryIndex = countryNames.indexOf(country);
-
-		updateSpinnerRatesAdapter(countryIndex);
-
-		saveCountryIndex(countryIndex);
-		saveRateIndex(0);
-	}
 
 	@Override
 	public void onFocusChange(View view, boolean hasFocus) {
@@ -516,24 +478,5 @@ public class Main extends AppCompatActivity
 
 		int countryIndex = getSavedCountryIndex();
 		textView.setText(countryNames.get(countryIndex));
-	}
-
-	@Override
-	public void onItemSelected
-		(
-			AdapterView<?> parent,
-			View 		   view,
-			int 		   position,
-			long 		   id
-		) {
-
-		String item = (String) parent.getItemAtPosition(position);
-		updateTaxRate(item);
-		saveRateIndex(position);
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> parent) {
-		// do nothing
 	}
 }

@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="16dp"
+                android:baselineAligned="false"
                 >
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -35,9 +36,10 @@
                     android:layout_weight="1"
                     app:endIconMode="clear_text"
                     app:hintEnabled="false"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     >
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoComplete"
+                        android:id="@+id/spinnerCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:completionThreshold="0"
@@ -47,14 +49,23 @@
                     />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Spinner
-                    android:id="@+id/spinnerRates"
-                    android:layout_width="fill_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:prompt="@string/TaxRate"
-                    style="@style/CustomSpinner"
-                />
+                    android:layout_weight="2"
+                    app:hintEnabled="false"
+                    android:layout_marginStart="5dp"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    >
+                    <biz.binarysolutions.vatcalculator.util.Spinner
+                        android:id="@+id/spinnerRate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:padding="12dp"
+                    />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
