@@ -43,7 +43,7 @@
                         android:completionThreshold="0"
                         android:lines="1"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:paddingBottom="14dp"
+                        android:padding="12dp"
                     />
                 </com.google.android.material.textfield.TextInputLayout>
 
