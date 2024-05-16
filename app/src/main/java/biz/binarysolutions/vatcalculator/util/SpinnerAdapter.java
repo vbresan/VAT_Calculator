@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class SpinnerAdapter extends ArrayAdapter<String> {
 
     /**
