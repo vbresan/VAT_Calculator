@@ -2,7 +2,6 @@ package biz.binarysolutions.vatcalculator.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +41,7 @@ public class Spinner extends MaterialAutoCompleteTextView {
 
         this.items = items;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        SpinnerAdapter adapter = new SpinnerAdapter(
             getContext(),
             R.layout.list_item,
             items
