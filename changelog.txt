@@ -1,4 +1,4 @@
-2.0 (2024.05.xx)
+2.0 (2024.05.16)
 
 * updating VAT information
 * complete redesign
