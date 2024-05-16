@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -39,7 +38,7 @@ import biz.binarysolutions.vatcalculator.util.Spinner;
 /**
  *
  */
-public class Main extends AppCompatActivity implements OnFocusChangeListener {
+public class Main extends AppCompatActivity {
 
 	public static final String KEY_COUNTRY_INDEX = "countryIndex";
 	public static final String KEY_RATE_INDEX    = "rateIndex";
@@ -272,6 +271,30 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 
 	/**
 	 *
+	 * @param view
+	 * @param hasFocus
+	 */
+	private void onCountryFocusChanged(View view, boolean hasFocus) {
+
+		if (view.getParent().getParent() instanceof TextInputLayout parent) {
+			parent.setEndIconVisible(hasFocus);
+		}
+
+		if (hasFocus || !(view instanceof TextView textView)) {
+			return;
+		}
+
+		String string = textView.getText().toString();
+		if (countryNames.contains(string)) {
+			return;
+		}
+
+		int countryIndex = getSavedCountryIndex();
+		textView.setText(countryNames.get(countryIndex));
+	}
+
+	/**
+	 *
 	 */
 	private void onCountryItemClicked(String country) {
 
@@ -296,7 +319,7 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 
 		MaterialAutoCompleteTextView view = findViewById(R.id.spinnerCountry);
 		view.setAdapter(adapter);
-		view.setOnFocusChangeListener(this);
+		view.setOnFocusChangeListener(this::onCountryFocusChanged);
 		view.setOnItemClickListener((pa, v, po, id) ->
 			onCountryItemClicked(view.getText().toString())
 		);
@@ -462,24 +485,4 @@ public class Main extends AppCompatActivity implements OnFocusChangeListener {
 		initializeAds();
 		antiFlickWorkaround();
     }
-
-	@Override
-	public void onFocusChange(View view, boolean hasFocus) {
-
-		if (view.getParent().getParent() instanceof TextInputLayout parent) {
-			parent.setEndIconVisible(hasFocus);
-		}
-
-		if (hasFocus || !(view instanceof TextView textView)) {
-			return;
-		}
-
-		String string = textView.getText().toString();
-		if (countryNames.contains(string)) {
-			return;
-		}
-
-		int countryIndex = getSavedCountryIndex();
-		textView.setText(countryNames.get(countryIndex));
-	}
 }
