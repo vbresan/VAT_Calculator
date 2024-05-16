@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/Base"
                 android:layout_marginBottom="16dp"
-                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextAppearance="?android:attr/textAppearanceMedium"
                 app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/Tax"
                 android:layout_marginBottom="16dp"
-                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextAppearance="?android:attr/textAppearanceMedium"
                 app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/Total"
                 android:layout_marginBottom="16dp"
-                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextAppearance="?android:attr/textAppearanceMedium"
                 app:startIconDrawable="@drawable/mtrl_ic_cancel_copy"
                 >
                 <com.google.android.material.textfield.TextInputEditText
