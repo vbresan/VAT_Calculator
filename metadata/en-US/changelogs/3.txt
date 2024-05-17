@@ -1,0 +1,6 @@
+1.2 (2013.06.30)
+
+* built with Android 4.2
+* removing ACRA
+* updated 3rd party libraries
+* updated tax rates

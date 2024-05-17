@@ -1,0 +1,4 @@
+1.1 (2012.03.23)
+
+* updated tax rates
+* can be installed to SD card
