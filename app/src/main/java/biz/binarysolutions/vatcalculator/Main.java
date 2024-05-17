@@ -412,7 +412,7 @@ public class Main extends AppCompatActivity {
 	/**
 	 *
 	 */
-	private void setStartIconListeners() {
+	private void setStartIconOnClickListeners() {
 
 		layoutBase.setStartIconOnClickListener(v -> editTextBase.setText(""));
 		layoutTax.setStartIconOnClickListener(v -> editTextTax.setText(""));
@@ -441,6 +441,15 @@ public class Main extends AppCompatActivity {
 
 	/**
 	 *
+	 * @param editText
+	 * @return
+	 */
+	private boolean shouldShowStartIcon(EditText editText) {
+		return editText.hasFocus() && editText.length() > 0;
+	}
+
+	/**
+	 *
 	 */
 	private void antiFlickWorkaround() {
 
@@ -449,9 +458,9 @@ public class Main extends AppCompatActivity {
 			@Override
 			public void onGlobalLayout() {
 
-				layoutBase.setStartIconVisible(false);
-				layoutTax.setStartIconVisible(false);
-				layoutTotal.setStartIconVisible(false);
+				layoutBase.setStartIconVisible(shouldShowStartIcon(editTextBase));
+				layoutTax.setStartIconVisible(shouldShowStartIcon(editTextTax));
+				layoutTotal.setStartIconVisible(shouldShowStartIcon(editTextTotal));
 
 				layoutTotal.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 			}
@@ -479,7 +488,7 @@ public class Main extends AppCompatActivity {
 		setCountrySpinner();
 		setRateSpinner();
 
-		setStartIconListeners();
+		setStartIconOnClickListeners();
         setEditTextListeners();
 
 		initializeAds();
