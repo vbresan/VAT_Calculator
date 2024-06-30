@@ -1,5 +1,6 @@
 package biz.binarysolutions.vatcalculator;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -325,6 +327,18 @@ public class Main extends AppCompatActivity {
 	}
 
 	/**
+	 *
+	 * @param view
+	 */
+	private void hideKeyboard(View view) {
+
+		InputMethodManager imm = (InputMethodManager)
+			getSystemService(Context.INPUT_METHOD_SERVICE);
+
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	}
+
+	/**
 	 * 
 	 */
 	private void setRateSpinner() {
@@ -339,6 +353,9 @@ public class Main extends AppCompatActivity {
 			public void afterTextChanged(Editable editable) {
 				updateTaxRate(editable.toString());
 			}
+		});
+		spinnerRates.setOnFocusChangeListener((v, hasFocus) -> {
+			if (hasFocus) hideKeyboard(v);
 		});
 
 		int index = getSavedRateIndex();
