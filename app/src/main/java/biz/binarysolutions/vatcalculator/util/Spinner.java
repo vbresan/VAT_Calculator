@@ -24,14 +24,17 @@ public class Spinner extends MaterialAutoCompleteTextView {
 
     public Spinner(@NonNull Context context) {
         super(context);
+        setKeyListener(null);
     }
 
     public Spinner(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         super(context, attributeSet);
+        setKeyListener(null);
     }
 
     public Spinner(@NonNull Context context, @Nullable AttributeSet attributeSet, int defStyleAttr) {
         super(context, attributeSet, defStyleAttr);
+        setKeyListener(null);
     }
 
     /**

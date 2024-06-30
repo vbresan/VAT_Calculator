@@ -43,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:completionThreshold="0"
+                        android:inputType="text"
                         android:lines="1"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:padding="12dp"
@@ -61,7 +62,8 @@
                         android:id="@+id/spinnerRate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
+                        android:inputType="text"
+                        android:lines="1"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:padding="12dp"
                     />
