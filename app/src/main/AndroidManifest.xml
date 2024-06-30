@@ -31,13 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <!-- AdMob Begin -->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id"
-        />
-        <!-- AdMob End -->
-         
+
     </application>
 </manifest>

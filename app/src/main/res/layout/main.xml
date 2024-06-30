@@ -130,18 +130,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom|center_horizontal"
-            >
-            <com.google.android.ads.nativetemplates.TemplateView
-                android:id="@+id/my_template"
-                app:gnt_template_type="@layout/gnt_small_template_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-            />
-        </LinearLayout>
+        <include layout="@layout/banner_ad" />
+
     </LinearLayout>
 </ScrollView>

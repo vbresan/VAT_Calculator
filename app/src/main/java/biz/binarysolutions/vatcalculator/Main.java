@@ -14,11 +14,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.ads.nativetemplates.NativeTemplateStyle;
-import com.google.android.ads.nativetemplates.TemplateView;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import biz.binarysolutions.vatcalculator.util.AdHandler;
 import biz.binarysolutions.vatcalculator.util.DefaultTextWatcher;
 import biz.binarysolutions.vatcalculator.util.Spinner;
 
@@ -421,26 +417,6 @@ public class Main extends AppCompatActivity {
 
 	/**
 	 *
-	 */
-	private void initializeAds() {
-
-		MobileAds.initialize(this);
-
-		String           adId    = getString(R.string.admob_native_ad_id);
-		AdLoader.Builder builder = new AdLoader.Builder(this, adId);
-		builder.forNativeAd(nativeAd -> {
-
-			TemplateView template = findViewById(R.id.my_template);
-			template.setStyles(new NativeTemplateStyle.Builder().build());
-			template.setNativeAd(nativeAd);
-		});
-
-		AdLoader adLoader = builder.build();
-		adLoader.loadAd(new AdRequest.Builder().build());
-	}
-
-	/**
-	 *
 	 * @param editText
 	 * @return
 	 */
@@ -489,9 +465,9 @@ public class Main extends AppCompatActivity {
 		setRateSpinner();
 
 		setStartIconOnClickListeners();
-        setEditTextListeners();
+		setEditTextListeners();
 
-		initializeAds();
+		AdHandler.initialize(this);
 		antiFlickWorkaround();
     }
 }
