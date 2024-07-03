@@ -4,9 +4,6 @@
     android:installLocation="auto"
     >
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
     <supports-screens
         android:xlargeScreens="true"        
        	android:largeScreens="true"

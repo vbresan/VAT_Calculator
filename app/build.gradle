@@ -13,8 +13,8 @@ android {
         applicationId "biz.binarysolutions.vatcalculator"
         minSdk 21
         targetSdk 34
-        versionCode 8
-        versionName "2.0.2"
+        versionCode 9
+        versionName "2.0.3"
 
         setProperty("archivesBaseName", "$applicationId-$versionName")
     }
