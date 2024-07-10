@@ -7,6 +7,15 @@
   <img src="https://github.com/vbresan/VAT_Calculator/blob/master/metadata/en-US/images/phoneScreenshots/3.png" width="20%" alt="Screenshot light theme purple" title="Screenshot light theme orange" />
 </p>
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/biz.binarysolutions.vatcalculator/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=biz.binarysolutions.vatcalculator)
+
+Or download the latest APK from the [Releases Section](https://github.com/vbresan/VAT_Calculator/releases/latest).
+
 ## Contributing
 ### Updating VAT rates
 This app keeps track of VAT rates for over 160 countries. Since VAT rates change occasionally, the app requires updates as well. All rates are defined in the [`rates.json`](https://github.com/vbresan/VAT_Calculator/blob/master/app/src/main/assets/rates.json) file. The file's syntax is straightforward, and no coding knowledge is necessary to update the file and correct the rates. 
