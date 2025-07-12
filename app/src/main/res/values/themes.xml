@@ -1,0 +1,4 @@
+<resources>
+    <style name="BaseTheme" parent="Theme.Material3.DayNight" />
+    <style name="AppTheme" parent="BaseTheme" />
+</resources>
