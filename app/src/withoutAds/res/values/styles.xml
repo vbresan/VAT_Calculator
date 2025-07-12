@@ -1,0 +1,12 @@
+<resources>
+    <style name="AlertDialog" parent="@style/MaterialAlertDialog.Material3">
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialog.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialog.Button.Text</item>
+    </style>
+    <style name="AlertDialog.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+    </style>
+    <style name="AlertDialog.Button.Text" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

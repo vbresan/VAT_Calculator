@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    >
+    <Button
+        android:id="@+id/buttonShowSupport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show support"
+        style="?android:attr/buttonBarButtonStyle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginHorizontal="0dp"
+    />
+</LinearLayout>

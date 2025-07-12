@@ -130,7 +130,7 @@
 
         </LinearLayout>
 
-        <include layout="@layout/banner_ad" />
+        <include layout="@layout/bottom_bar" />
 
     </LinearLayout>
 </ScrollView>

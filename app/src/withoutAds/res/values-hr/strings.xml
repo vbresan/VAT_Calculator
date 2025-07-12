@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ShowSupport">Pokaži podršku</string>
+    <string name="Continue">Nastavi</string>
+    <string name="DonateDialogTitle">Ova aplikacija treba tvoju podršku</string>
+    <string name="DonateDialogContent">
+        Ova aplikacija je besplatna, otvorenog koda, bez oglasa i bez praćenja
+        aktivnosti korisnika. Kako bi takva i ostala, ako možeš, doniraj danas.
+    </string>
+
+</resources>

@@ -29,7 +29,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import biz.binarysolutions.vatcalculator.util.AdHandler;
+import biz.binarysolutions.vatcalculator.util.FlavorSpecific;
 import biz.binarysolutions.vatcalculator.util.DefaultTextWatcher;
 import biz.binarysolutions.vatcalculator.util.Spinner;
 
@@ -484,7 +484,7 @@ public class Main extends AppCompatActivity {
 		setStartIconOnClickListeners();
 		setEditTextListeners();
 
-		AdHandler.initialize(this);
+		new FlavorSpecific(this).initializeBottomBar();
 		antiFlickWorkaround();
     }
 }

@@ -1,3 +1,4 @@
 2.0.5 (2024.07.12)
 
 * targeting android SDK version 35
+* adding support button to no-ads version

@@ -7,7 +7,7 @@
 .externalNativeBuild
 .cxx
 /app/build/
-/app/release/
+release/
 /nativetemplates/
 /gradlew
 /gradlew.bat

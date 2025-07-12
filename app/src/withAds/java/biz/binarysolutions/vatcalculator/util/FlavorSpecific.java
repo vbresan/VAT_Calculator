@@ -1,6 +1,6 @@
 package biz.binarysolutions.vatcalculator.util;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
@@ -10,16 +10,15 @@ import com.google.android.gms.ads.MobileAds;
 
 import biz.binarysolutions.vatcalculator.R;
 
-/**
- *
- */
-public class AdHandler {
+public class FlavorSpecific {
 
-    /**
-     *
-     * @param activity
-     */
-    public static void initialize(AppCompatActivity activity) {
+    private final Activity activity;
+
+    public FlavorSpecific(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void initializeBottomBar() {
 
         MobileAds.initialize(activity);
 
